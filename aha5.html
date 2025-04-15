@@ -148,14 +148,7 @@
           addBtn.textContent = '➕ إضافة فيديو';
           addBtn.onclick = () => handleAddVideo(i);
           buttons.appendChild(addBtn);
-        } else {
-          const startBtn = document.createElement('button');
-          startBtn.className = 'start-btn';
-          startBtn.textContent = '▶️ بدء';
-          startBtn.onclick = () => {
-            window.location.href = "watch.html";
-
-          };
+        } 
 
           const downloadBtn = document.createElement('button');
           downloadBtn.className = 'download-btn';
