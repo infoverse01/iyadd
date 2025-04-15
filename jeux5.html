@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>لعبة ربط الأحداث بالتواريخ</title>
+  <style>
+    body {
+      font-family: Arial;
+      direction: rtl;
+      background: linear-gradient(to left, #fdfbfb, #ebedee);
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      height: 600px;
+    }
+    .column {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      height: 100%;
+      z-index: 1;
+    }
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .dot {
+      width: 14px;
+      height: 14px;
+      background: red;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    #result {
+      text-align: center;
+      font-size: 20px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h2>🎯 اربط كل حدث بالتاريخ الصحيح بالنقر على النقاط</h2>
+
+<div class="container" id="gameContainer">
+  <div class="column" id="eventsColumn"></div>
+  <svg id="svgCanvas"></svg>
+  <div class="column" id="datesColumn"></div>
+</div>
+
+<div id="result"></div>
+<button onclick="checkAnswers()">تحقق من الإجابات ✅</button>
+
+<script>
+const data = [
+  { event: "استقلال الجزائر", date: "1962" },
+  { event: "اندلاع الحرب العالمية الثانية", date: "1939" },
+  { event: "هبوط الإنسان على القمر", date: "1969" }
+];
+
+const eventsColumn = document.getElementById("eventsColumn");
+const datesColumn = document.getElementById("datesColumn");
+const svgCanvas = document.getElementById("svgCanvas");
+
+let selectedDot = null;
+let connections = [];
+
+function createItem(text, id, side) {
+  const item = document.createElement("div");
+  item.className = "item";
+
+  const dot = document.createElement("div");
+  dot.className = "dot";
+  dot.dataset.id = id;
+  dot.dataset.side = side;
+
+  dot.addEventListener("click", () => handleDotClick(dot));
+
+  item.appendChild(dot);
+  item.appendChild(document.createTextNode(text));
+  return item;
+}
+
+function handleDotClick(dot) {
+  if (!selectedDot) {
+    selectedDot = dot;
+    dot.style.backgroundColor = "blue";
+  } else if (selectedDot !== dot && selectedDot.dataset.side !== dot.dataset.side) {
+    drawLineBetweenDots(selectedDot, dot);
+
+    const from = selectedDot.dataset.side === "event" ? selectedDot.dataset.id : dot.dataset.id;
+    const to = selectedDot.dataset.side === "date" ? selectedDot.dataset.id : dot.dataset.id;
+
+    connections.push({ from, to });
+
+    selectedDot.style.backgroundColor = "red";
+    dot.style.backgroundColor = "red";
+    selectedDot = null;
+  }
+}
+
+function drawLineBetweenDots(dot1, dot2) {
+  const rect1 = dot1.getBoundingClientRect();
+  const rect2 = dot2.getBoundingClientRect();
+  const svgRect = svgCanvas.getBoundingClientRect();
+
+  const x1 = rect1.left + rect1.width / 2 - svgRect.left;
+  const y1 = rect1.top + rect1.height / 2 - svgRect.top;
+  const x2 = rect2.left + rect2.width / 2 - svgRect.left;
+  const y2 = rect2.top + rect2.height / 2 - svgRect.top;
+
+  const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  line.setAttribute("x1", x1);
+  line.setAttribute("y1", y1);
+  line.setAttribute("x2", x2);
+  line.setAttribute("y2", y2);
+  line.setAttribute("stroke", "black");
+  line.setAttribute("stroke-width", "2");
+
+  svgCanvas.appendChild(line);
+}
+
+function checkAnswers() {
+  let correct = 0;
+  connections.forEach(conn => {
+    const match = data.find(d => d.event === conn.from && d.date === conn.to);
+    if (match) correct++;
+  });
+
+  const result = document.getElementById("result");
+  if (correct === data.length) {
+    result.textContent = "🎉 مبروك! كل التوصيلات صحيحة!";
+    result.style.color = "green";
+  } else {
+    result.textContent = "❌ بعض التوصيلات غير صحيحة، حاول مجددًا.";
+    result.style.color = "red";
+  }
+}
+
+// بناء العناصر
+data.forEach(item => {
+  eventsColumn.appendChild(createItem(item.event, item.event, "event"));
+  datesColumn.appendChild(createItem(item.date, item.date, "date"));
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>لعبة التخمين والرسم</title>
+  <link rel="stylesheet" href="draw.css">
+</head>
+<body>
+  <h1>🎨 لعبة ارسم وخمن</h1>
+
+  <div id="game-container">
+    <div id="word-display">ارسم: ...</div>
+    <button id="startGame">ابدأ اللعبة</button>
+
+    <canvas id="canvas" width="400" height="300"></canvas>
+
+    <div class="controls">
+      <input type="text" id="guess" placeholder="ما هو تخمينك؟">
+      <button id="submitGuess">أرسل التخمين</button>
+      <button id="clearCanvas">مسح الرسم</button>
+    </div>
+  </div>
+
+  <script src="draw.js"></script>
+</body>
+</html>

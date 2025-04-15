@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>مشاهدة الفيديو</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #232526, #414345);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    video {
+      max-width: 90%;
+      max-height: 500px;
+      border: 3px solid #fff;
+      border-radius: 10px;
+    }
+
+    .info {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .btn {
+      padding: 10px 15px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      background: #3498db;
+      color: white;
+      cursor: pointer;
+    }
+
+    .like-btn {
+      background-color: #e74c3c;
+    }
+
+    .comments-section {
+      margin-top: 20px;
+      width: 90%;
+      max-width: 700px;
+      background: #2c3e50;
+      padding: 15px;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .comments-section textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .comment {
+      background: #34495e;
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 5px;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: #16a085;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="btn back-btn" onclick="goBack()">⬅️ الصفحة الرئيسية</button>
+
+  <video id="videoPlayer" controls autoplay></video>
+
+  <div class="info">
+    <div>📅 <span id="videoDate"></span></div>
+    <div>👁️ المشاهدات: <span id="views">0</span></div>
+    <div>❤️ الإعجابات: <span id="likes">0</span></div>
+    <button class="btn like-btn" onclick="likeVideo()">أعجبني</button>
+    <button class="btn" onclick="toggleComments()">💬 التعليقات</button>
+  </div>
+
+  <div class="comments-section" id="commentsSection">
+    <h3>🗨️ التعليقات</h3>
+    <textarea id="commentInput" rows="3" placeholder="اكتب تعليقك هنا..."></textarea>
+    <button class="btn" onclick="addComment()">➕ أضف تعليق</button>
+    <div id="commentsList"></div>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const videoSrc = urlParams.get("video");
+    const videoDate = urlParams.get("date") || "تاريخ غير معروف";
+
+    const video = document.getElementById("videoPlayer");
+    const viewsEl = document.getElementById("views");
+    const likesEl = document.getElementById("likes");
+    const videoDateEl = document.getElementById("videoDate");
+
+    const videoId = btoa(videoSrc); // ID بسيط للفيديو بالـ base64
+
+    video.src = videoSrc;
+    videoDateEl.textContent = videoDate;
+
+    // جلب البيانات من localStorage
+    const videoStats = JSON.parse(localStorage.getItem("videoStats") || "{}");
+
+    // إذا لا توجد مشاهدات مبدئية
+    if (!videoStats[videoId]) {
+      videoStats[videoId] = { views: 0, likes: 0, comments: [] };
+    }
+
+    // زيادة المشاهدات
+    videoStats[videoId].views++;
+    localStorage.setItem("videoStats", JSON.stringify(videoStats));
+
+    // عرض الإحصائيات
+    viewsEl.textContent = videoStats[videoId].views;
+    likesEl.textContent = videoStats[videoId].likes;
+
+    // إعجاب
+    function likeVideo() {
+      videoStats[videoId].likes++;
+      localStorage.setItem("videoStats", JSON.stringify(videoStats));
+      likesEl.textContent = videoStats[videoId].likes;
+    }
+
+    // تعليقات
+    function toggleComments() {
+      const section = document.getElementById("commentsSection");
+      section.style.display = section.style.display === "block" ? "none" : "block";
+      displayComments();
+    }
+
+    function addComment() {
+      const input = document.getElementById("commentInput");
+      const commentText = input.value.trim();
+      if (!commentText) return;
+      videoStats[videoId].comments.push(commentText);
+      localStorage.setItem("videoStats", JSON.stringify(videoStats));
+      input.value = "";
+      displayComments();
+    }
+
+    function displayComments() {
+      const commentsList = document.getElementById("commentsList");
+      commentsList.innerHTML = "";
+      videoStats[videoId].comments.forEach(comment => {
+        const div = document.createElement("div");
+        div.className = "comment";
+        div.textContent = comment;
+        commentsList.appendChild(div);
+      });
+    }
+
+    // زر الرجوع
+    function goBack() {
+      window.location.href = "aha5.html";
+    }
+  </script>
+
+</body>
+</html>

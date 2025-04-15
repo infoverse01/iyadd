@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>آلة التنبؤ بالمستقبل 🔮</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial;
+      background: linear-gradient(to right, #2c3e50, #3498db);
+      color: white;
+      padding: 50px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔮 اسألني أي شيء عن المستقبل</h1>
+  <input id="question" placeholder="اكتب سؤالك هنا...">
+  <br>
+  <button onclick="predict()">اسأل</button>
+
+  <div id="result"></div>
+
+  <script>
+    const answers = [
+      
+      "لا",
+      "نعم"
+    ];
+
+    function predict() {
+      const question = document.getElementById('question').value;
+      const result = document.getElementById('result');
+
+      if (!question.trim()) {
+        result.textContent = "اسأل شيئًا أولًا!";
+        return;
+      }
+
+      const randomIndex = Math.floor(Math.random() * answers.length);
+      result.textContent = answers[randomIndex];
+    }
+  </script>
+</body>
+</html>

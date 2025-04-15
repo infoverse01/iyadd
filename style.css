@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: "poppins" ,serif       ;
+
+}
+
+body{
+
+ background-color: #222831            ;
+
+
+
+
+}
+.navigation a{
+text-decoration: none;
+color: white;
+
+
+
+
+}
+.navigation a:hover {
+   color: rgb(55, 55, 155);
+
+
+}
+hr {
+    opacity: 10%;
+}
+
+section img {
+  width: 300px; 
+  height: auto; 
+  max-width: 100%; 
+  display: block; 
+  margin: 0 auto; 
+}
+section {
+  display: flex; 
+  justify-content: space-between; 
+  gap: 10px; 
+  flex-wrap: wrap; 
+}
+ul{
+  display: flex; 
+  justify-content: space-between; 
+  gap: 10px; 
+  flex-wrap: wrap; 
+
+
+
+}
+section {
+  margin-bottom: 380px; 
+}
+
+
+
+.Email {
+  width: 40px; /* تصغير الصورة إلى 50% من الحجم الأصلي */
+  height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+  
+  transform: translateX(150px); /* المسافة التي تتحركها الصورة */
+  
+
+
+
+}
+
+.Emailt{
+  transform: translateX(0px);
+  transform: translateY(2px);
+
+
+
+}
+
+.teleg{
+  width: 40px; /* تصغير الصورة إلى 50% من الحجم الأصلي */
+  height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+  width: 40px; /* تصغير الصورة إلى 50% من الحجم الأصلي */
+  height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+  
+  transform: translateX(160px); /* المسافة التي تتحركها الصورة */
+  
+
+
+}
+
+.teleg1{
+
+  transform: translateX(0px);
+  transform: translateY(2px);
+
+
+
+}
+
+.phonei{
+  width: 40px; /* تصغير الصورة إلى 50% من الحجم الأصلي */
+  height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+  width: 40px; /* تصغير الصورة إلى 50% من الحجم الأصلي */
+  height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+  transform: translateX(150px); /* المسافة التي تتحركها الصورة */
+
+
+
+
+}
+
+
+
+
+

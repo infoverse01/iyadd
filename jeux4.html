@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🧠 لعبة طابق الزوجي</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(120deg, #f6d365, #fda085);
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+      color: #333;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .stats {
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(4, 80px);
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .card {
+      width: 80px;
+      height: 80px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.3s;
+    }
+
+    .card.revealed {
+      background-color: #4caf50;
+      color: white;
+      cursor: default;
+    }
+
+    .card.wrong {
+      background-color: #f44336;
+      color: white;
+    }
+
+    #restartBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #673ab7;
+      color: white;
+      cursor: pointer;
+    }
+
+    #restartBtn:hover {
+      background-color: #5e35b1;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎯 لعبة طابق الزوجي</h1>
+  <div class="stats">
+    ⏱️ الوقت: <span id="timer">0</span> ثانية |
+    🎯 المحاولات: <span id="attempts">0</span>
+  </div>
+  <div class="game-board" id="gameBoard"></div>
+  <button id="restartBtn" onclick="location.reload()">🔄 إعادة اللعبة</button>
+
+  <script>
+    const board = document.getElementById("gameBoard");
+    const timerDisplay = document.getElementById("timer");
+    const attemptsDisplay = document.getElementById("attempts");
+
+    let emojis = ["🐶", "🐱", "🐭", "🐰", "🦊", "🐼", "🐨", "🐸"];
+    let cards = [...emojis, ...emojis]; // مرتين للزوجي
+    let revealedCards = [];
+    let matched = 0;
+    let attempts = 0;
+    let timer = 0;
+    let timerStarted = false;
+    let timerInterval;
+
+    function shuffle(arr) {
+      arr.sort(() => Math.random() - 0.5);
+    }
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        timer++;
+        timerDisplay.textContent = timer;
+      }, 1000);
+    }
+
+    function createCard(emoji) {
+      const card = document.createElement("div");
+      card.classList.add("card");
+      card.dataset.emoji = emoji;
+      card.textContent = "❓";
+
+      card.addEventListener("click", () => {
+        if (!timerStarted) {
+          startTimer();
+          timerStarted = true;
+        }
+
+        if (card.classList.contains("revealed") || revealedCards.length === 2) return;
+
+        card.textContent = emoji;
+        revealedCards.push(card);
+
+        if (revealedCards.length === 2) {
+          attempts++;
+          attemptsDisplay.textContent = attempts;
+
+          const [first, second] = revealedCards;
+          if (first.dataset.emoji === second.dataset.emoji) {
+            first.classList.add("revealed");
+            second.classList.add("revealed");
+            revealedCards = [];
+            matched++;
+
+            if (matched === emojis.length) {
+              clearInterval(timerInterval);
+              setTimeout(() => {
+                alert(`🎉 فزت! الوقت: ${timer} ثانية، المحاولات: ${attempts}`);
+              }, 300);
+            }
+          } else {
+            first.classList.add("wrong");
+            second.classList.add("wrong");
+            setTimeout(() => {
+              first.classList.remove("wrong");
+              second.classList.remove("wrong");
+              first.textContent = "❓";
+              second.textContent = "❓";
+              revealedCards = [];
+            }, 700);
+          }
+        }
+      });
+
+      board.appendChild(card);
+    }
+
+    shuffle(cards);
+    cards.forEach(emoji => createCard(emoji));
+  </script>
+</body>
+</html>

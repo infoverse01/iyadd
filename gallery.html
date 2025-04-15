@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>معرض الصور</title>
+  <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+
+
+
+
+  
+  <header>
+    <input type="text" id="searchInput" placeholder="ابحث عن الصور...">
+    <p id="noResults" style="display:none;">لا يوجد هذا الاسم، حاول مجددًا</p>
+  </header>
+
+  <main id="gallery">
+    <!-- المربعات تُولد تلقائيًا من JavaScript -->
+  </main>
+
+  <input type="file" id="uploadInput" accept="image/*" style="display: none;">
+
+  <script src="gallery.js"></script>
+
+ 
+  
+
+  <body>
+    <!-- المربعات التي تحتوي على الصور -->
+    <div class="gallery">
+        <div class="square">
+            <img src="image1.jpg" alt="Image 1" />
+            <button class="delete-btn" onclick="deleteImage(this)">احذف</button>
+        </div>
+        <div class="square">
+            <img src="image2.jpg" alt="Image 2" />
+            <button class="delete-btn" onclick="deleteImage(this)">احذف</button>
+        </div>
+        <div class="square">
+            <img src="image3.jpg" alt="Image 3" />
+            <button class="delete-btn" onclick="deleteImage(this)">احذف</button>
+        </div>
+        <!-- المزيد من الصور هنا -->
+    </div>
+</body>
+</body>
+
+
+
+
+</body>
+</html>
+
+

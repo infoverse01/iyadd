@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة موتوواكس (MotoX)</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000;
+            font-family: Arial, sans-serif;
+        }
+
+        canvas {
+            display: block;
+            margin: 0 auto;
+            background-color: #333;
+        }
+
+        #score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #gameOver {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: red;
+            font-size: 40px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <div id="score">النقاط: 0</div>
+    <div id="gameOver">انتهت اللعبة! اضغط للبدء مجددًا</div>
+    
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreDisplay = document.getElementById('score');
+        const gameOverDisplay = document.getElementById('gameOver');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let bike, obstacles = [], score = 0, level = 1, gameInterval, obstacleSpeed = 5, gameOver = false;
+
+        const keys = { up: false, down: false, left: false, right: false };
+
+        // الدراجة النارية
+        bike = {
+            x: canvas.width / 2,
+            y: canvas.height - 80,
+            width: 40,
+            height: 60,
+            color: 'red',
+            speed: 5
+        };
+
+        // تحديث الشاشة
+        function update() {
+            if (gameOver) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // تحريك الدراجة
+            if (keys.up && bike.y > 0) bike.y -= bike.speed;
+            if (keys.down && bike.y < canvas.height - bike.height) bike.y += bike.speed;
+            if (keys.left && bike.x > 0) bike.x -= bike.speed;
+            if (keys.right && bike.x < canvas.width - bike.width) bike.x += bike.speed;
+
+            // رسم الدراجة النارية
+            ctx.fillStyle = bike.color;
+            ctx.fillRect(bike.x, bike.y, bike.width, bike.height);
+
+            // إنشاء العوائق
+            if (Math.random() < 0.02) {
+                const obstacleWidth = Math.random() * 50 + 30;
+                obstacles.push({
+                    x: Math.random() * (canvas.width - obstacleWidth),
+                    y: -30,
+                    width: obstacleWidth,
+                    height: 20,
+                    color: 'yellow'
+                });
+            }
+
+            // تحريك العوائق
+            obstacles.forEach(obstacle => {
+                obstacle.y += obstacleSpeed;
+                ctx.fillStyle = obstacle.color;
+                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+
+                // تصادم بين الدراجة والعائق
+                if (obstacle.y + obstacle.height > bike.y &&
+                    obstacle.x < bike.x + bike.width &&
+                    obstacle.x + obstacle.width > bike.x) {
+                    endGame();
+                }
+            });
+
+            // إزالة العوائق بعد تخطي الشاشة
+            obstacles = obstacles.filter(obstacle => obstacle.y < canvas.height);
+
+            // تحديث النقاط
+            score += 1;
+            scoreDisplay.textContent = `النقاط: ${score}`;
+
+            // زيادة السرعة مع المستوى
+            if (score % 10 === 0) {
+                level++;
+                obstacleSpeed += 0.5; // زيادة سرعة العوائق
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        // إنهاء اللعبة
+        function endGame() {
+            gameOver = true;
+            clearInterval(gameInterval);
+            gameOverDisplay.style.display = 'block';
+        }
+
+        // بدء اللعبة
+        function startGame() {
+            score = 0;
+            level = 1;
+            obstacleSpeed = 5;
+            bike.y = canvas.height - 80;
+            bike.x = canvas.width / 2;
+            obstacles = [];
+            gameOver = false;
+            gameOverDisplay.style.display = 'none';
+            update();
+        }
+
+        // التحكم في الحركة
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp') keys.up = true;
+            if (e.key === 'ArrowDown') keys.down = true;
+            if (e.key === 'ArrowLeft') keys.left = true;
+            if (e.key === 'ArrowRight') keys.right = true;
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (e.key === 'ArrowUp') keys.up = false;
+            if (e.key === 'ArrowDown') keys.down = false;
+            if (e.key === 'ArrowLeft') keys.left = false;
+            if (e.key === 'ArrowRight') keys.right = false;
+        });
+
+        // إعادة تشغيل اللعبة بعد الانتهاء
+        gameOverDisplay.addEventListener('click', startGame);
+
+        // بدء اللعبة عند التحميل
+        startGame();
+    </script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: "poppins" ,serif       ;
+
+}
+
+body{
+
+ background-color: #222831            ;
+
+
+
+
+}
+.navigation a{
+text-decoration: none;
+color: white;
+
+
+
+
+}
+.navigation a:hover {
+   color: rgb(55, 55, 155);
+
+
+}
+hr {
+    opacity: 10%;
+}
+
+section img {
+  width: 300px; 
+  height: auto; 
+  max-width: 100%; 
+  display: block; 
+  margin: 0 auto; 
+}
+section {
+  display: flex; 
+  justify-content: space-between; 
+  gap: 10px; 
+  flex-wrap: wrap; 
+}
+ul{
+  display: flex; 
+  justify-content: space-between; 
+  gap: 10px; 
+  flex-wrap: wrap; 
+
+
+
+}
+section {
+  margin-bottom: 500px; 
+}
+
+
+
+.Email {
+  width: 40px; /* تصغير الصورة إلى 50% من الحجم الأصلي */
+  height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+  
+  transform: translateX(700px); /* المسافة التي تتحركها الصورة */
+  
+
+
+
+}
+
+.Emailt{
+  transform: translateX(0px);
+  transform: translateY(2px);
+
+
+
+}
+
+.teleg{
+  width: 40px; /* تصغير الصورة إلى 50% من الحجم الأصلي */
+  height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+  width: 40px; /* تصغير الصورة إلى 50% من الحجم الأصلي */
+  height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+  
+  transform: translateX(160px); /* المسافة التي تتحركها الصورة */
+  
+
+
+}
+
+.teleg1{
+
+  transform: translateX(0px);
+  transform: translateY(2px);
+
+
+
+}
+
+.phonei{
+  width: 40px; /* تصغير الصورة إلى 50% من الحجم الأصلي */
+  height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+  width: 40px; /* تصغير الصورة إلى 50% من الحجم الأصلي */
+  height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+  transform: translateX(150px); /* المسافة التي تتحركها الصورة */
+
+
+
+
+}
+
+.abou{
+  width: 650px; /* تصغير الصورة إلى 50% من الحجم الأصلي */
+  height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+}
+.Heroi{
+  width: 650px; /* تصغير الصورة إلى 50% من الحجم الأصلي */
+  height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+
+
+
+
+}
+
+header .logogo {
+  width: 120px;
+  height: auto;
+}
+
+
+/* تنسيق شريط التنقل */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #222;
+  padding: 10px 20px;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+}
+
+/* تنسيق أيقونة البروفايل */
+.profile-container {
+  position: relative;
+}
+
+.profile {
+  width: 40px;
+  height: 40px;
+  background: white; /* خلفية سوداء */
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* صورة البروفايل */
+.profile img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* الدائرة الخضراء (حالة الاتصال) */
+.status {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+  width: 10px;
+  height: 10px;
+  background: green;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+
+/* تصميم زر السهم */
+.menu-arrow {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: black;
+  color: white;
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;
+}
+
+/* تأكد أن `nav` مخفي افتراضيًا */
+nav {
+  position: fixed;
+  left: -220px; /* إخفاء `nav` افتراضيًا */
+  top: 0;
+  width: 200px;
+  height: 100%;
+  background: #333;
+  transition: left 0.3s ease-in-out;
+}
+
+/* عندما يكون `nav` ظاهرًا */
+nav.show {
+  left: 0;
+}
+
+
+
+

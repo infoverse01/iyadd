@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>🎭 من أنت؟</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #8e44ad, #3498db);
+      color: white;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 20px;
+      margin-top: 20px;
+      background-color: white;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 40px;
+      font-size: 26px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎭 اكتشف شخصيتك العشوائية</h1>
+  <button onclick="revealPersonality()">من أنا؟</button>
+
+  <div id="result"></div>
+
+  <script>
+    const personalities = [
+      "🧠 المفكر العبقري",
+      "😂 المضحك الغريب",
+      "😎 الهادئ الغامض",
+      "🤯 العشوائي 100%",
+      "🦸‍♂️ البطل الخارق",
+      "👻 الشبح اللطيف",
+      "🎨 الفنان الحالم",
+      "🐢 الهادئ البطيء",
+      "🔥 النشيط المجنون",
+      "🐱 المحبوب الهادئ"
+    ];
+
+    function revealPersonality() {
+      const randomIndex = Math.floor(Math.random() * personalities.length);
+      document.getElementById("result").textContent = `شخصيتك هي: ${personalities[randomIndex]}`;
+    }
+  </script>
+</body>
+</html>

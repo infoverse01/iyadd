@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>🧞‍♂️ أمنيتك السحرية</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #16a085, #f39c12);
+      color: white;
+      font-family: 'Cairo', sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    button {
+      padding: 10px 30px;
+      font-size: 22px;
+      margin-top: 20px;
+      background-color: white;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #wish {
+      margin-top: 40px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧞‍♂️ امنحني أمنية!</h1>
+  <button onclick="grantWish()">أريد أمنيتي!</button>
+
+  <div id="wish"></div>
+
+  <script>
+    const wishes = [
+      "💰 ستحصل على مليون دولار (في الحلم 😆)",
+      "🎓 ستصبح عبقريًا!",
+      "💘 حب حياتك سيظهر فجأة!",
+      "🌍 رحلة حول العالم مجانًا!",
+      "🍕 بيتزا لا تنتهي أبدًا!",
+      "🏖️ إجازة للأبد",
+      "🛸 ستقابل كائنات فضائية قريبة!",
+      "🐶 صديق جديد من نوع كلب لطيف",
+      "👑 ستحكم مملكة من الشوكولاتة!",
+      "🎮 ستفوز في كل الألعاب بدون مجهود!"
+    ];
+
+    function grantWish() {
+      const index = Math.floor(Math.random() * wishes.length);
+      document.getElementById("wish").textContent = `أمنيتك: ${wishes[index]}`;
+    }
+  </script>
+</body>
+</html>

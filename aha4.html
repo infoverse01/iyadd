@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>ما هو حظك اليوم؟</title>
+  <style>
+    body { text-align: center; font-family: Arial; background: #fceff9; padding: 50px; }
+    button { padding: 10px 20px; font-size: 18px; margin-top: 20px; cursor: pointer; }
+    .result { font-size: 24px; margin-top: 30px; color: #8e44ad; }
+  </style>
+</head>
+<body>
+  <h1>🔮 ما هو حظك اليوم؟</h1>
+  <button onclick="getLuck()">اعرف الآن</button>
+  <div class="result" id="luckResult"></div>
+
+  <script>
+    const lucks = [
+      "اليوم هو يوم المفاجآت السارة! 🌟",
+      "ابقَ حذرًا من الأشخاص الفضوليين. 👀",
+      "حظك جيد جدًا اليوم، استغله! 🍀",
+      "تحلم بمليون دولار",
+      "اليوم يوم رائع للتجارب الجديدة! 🚀",
+      "يضربك اخوك صفعة"
+      
+    ];
+    function getLuck() {
+      const random = Math.floor(Math.random() * lucks.length);
+      document.getElementById('luckResult').textContent = lucks[random];
+    }
+  </script>
+</body>
+</html>
