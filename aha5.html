@@ -151,11 +151,12 @@
         } else {
           const startBtn = document.createElement('button');
           startBtn.className = 'start-btn';
-          startBtn.textContent = 'اذا حابب تدعمه باللايك حمله ';
+          startBtn.textContent = '▶️ بدء';
           startBtn.onclick = () => {
-            window.location.href = "watch.html";
+  const url = `watch.html?video=${encodeURIComponent(videoInfo.src)}&date=${encodeURIComponent(videoInfo.date)}`;
+  window.location.href = url;
+};
 
-          };
 
           const downloadBtn = document.createElement('button');
           downloadBtn.className = 'download-btn';
